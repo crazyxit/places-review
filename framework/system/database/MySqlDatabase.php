@@ -140,6 +140,10 @@ class MySqlDatabase implements IDatabase{
         return $this->numRows($result);
     }
 
+    public function GetLastInsertId(){
+        return $this->conn->insert_id;
+    }
+
     public function close(){
         return mysqli_close($this->conn);
     }
