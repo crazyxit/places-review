@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Ani
+ * User: Antonia Dimitrova
  * Date: 22.1.2017 г.
  * Time: 16:12
  */
@@ -25,7 +25,7 @@ class MySqlDatabase implements IDatabase{
         $this->conn = new mysqli($this->host, $this->username, $this->password, $this->database, $this->port, $this->socket);
 
         if (mysqli_connect_errno()){
-
+            throw new SqlException($this->error(), $this->errorNo());
         }
     }
 
@@ -37,12 +37,25 @@ class MySqlDatabase implements IDatabase{
         return mysqli_errno($this->conn);
     }
 
-    public static function escapeString($string){}
-    public function query($query){}
+    public function escapeString($string){
+        return mysqli_real_escape_string($this->conn, $string);
+    }
+
+    public function query($query){
+        if(!is_string($query)){
+            throw new SqlException("Query is not a string", 1);
+        }
+    }
+
     public function fetchArray($result){}
+
     public function fetchRow($result){}
+
     public function fetchAssoc($result){}
+
     public function fetchObject($result){}
+
     public function numRows($result){}
+
     public function close(){}
 }
