@@ -5,7 +5,7 @@
  * Date: 22.1.2017 г.
  * Time: 16:28
  */
-class CustomException extends Exception implements IException{
+class CustomException extends Exception implements ExceptionInterface{
     protected $message = 'Unknown exception';     // Exception message
     private   $string;                            // Unknown
     protected $code    = 0;                       // User-defined exception code

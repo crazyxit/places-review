@@ -5,7 +5,7 @@
  * Date: 22.1.2017 г.
  * Time: 16:12
  */
-class MySqlDatabase implements IDatabase{
+class MySqlDatabase implements Database{
     /**
      * @var mysqli
      */

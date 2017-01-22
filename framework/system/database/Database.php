@@ -5,7 +5,7 @@
  * Date: 22.1.2017 г.
  * Time: 15:55
  */
-interface IDatabase{
+interface Database{
     public function connect();
     public function error();
     public function errorNo();

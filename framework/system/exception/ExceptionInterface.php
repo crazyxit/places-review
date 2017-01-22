@@ -5,7 +5,7 @@
  * Date: 22.1.2017 г.
  * Time: 16:26
  */
-interface IException{
+interface ExceptionInterface{
     /* Protected methods inherited from Exception class */
     public function getMessage();                 // Exception message
     public function getCode();                    // User-defined Exception code
