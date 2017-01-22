@@ -6,6 +6,9 @@
  * Time: 16:12
  */
 class MySqlDatabase implements IDatabase{
+    /**
+     * @var mysqli
+     */
     private $conn;
     private $host;
     private $username;
@@ -45,17 +48,99 @@ class MySqlDatabase implements IDatabase{
         if(!is_string($query)){
             throw new SqlException("Query is not a string", 1);
         }
+
+        $result = $this->conn->query($query);
+        if (!$result){
+            throw new SqlException($this->error(), $this->errorNo());
+        }
+
+        return $result;
     }
 
-    public function fetchArray($result){}
+    public function fetchArray($result){
+        if (!$result){
+            throw new SqlException("No result", 2);
+        }
 
-    public function fetchRow($result){}
+        return mysqli_fetch_array($result);
+    }
 
-    public function fetchAssoc($result){}
+    public function fetchArrayWithQuery($query){
+        $result = $this->query($query);
+        return $this->fetchArray($result);
+    }
 
-    public function fetchObject($result){}
+    public function fetchRow($result){
+        if (!$result){
+            throw new SqlException("No result", 2);
+        }
 
-    public function numRows($result){}
+        return mysqli_fetch_row($result);
+    }
 
-    public function close(){}
+    public function fetchRowWithQuery($query){
+        $result = $this->query($query);
+        return $this->fetchRow($result);
+    }
+
+    public function fetchAssoc($result){
+        if (!$result){
+            throw new SqlException("No result", 2);
+        }
+
+        return mysqli_fetch_assoc($result);
+    }
+
+    public function fetchAssocWithQuery($query){
+        $result = $this->query($query);
+        return $this->fetchAssoc($result);
+    }
+
+    public function fetchObject($result){
+        if (!$result){
+            throw new SqlException("No result", 2);
+        }
+
+        return mysqli_fetch_object($result);
+    }
+
+    public function fetchObjectWithQuery($query){
+        $result = $this->query($query);
+        return $this->fetchObject($result);
+    }
+
+    public function fetchObjectArray($result){
+        if (!$result){
+            throw new SqlException("No result", 2);
+        }
+
+        $array = array();
+        while ($row = $this->fetchObject($result)) {
+            array_push($array, $row);
+        }
+
+        return $array;
+    }
+
+    public function fetchObjectArrayWithQuery($query){
+        $result = $this->query($query);
+        return $this->fetchObjectArray($result);
+    }
+
+    public function numRows($result){
+        if (!$result){
+            throw new SqlException("No result", 4);
+        }
+
+        return mysqli_num_rows($result);
+    }
+
+    public function numRowsWithQuery($query){
+        $result = $this->query($query);
+        return $this->numRows($result);
+    }
+
+    public function close(){
+        return mysqli_close($this->conn);
+    }
 }
