@@ -5,7 +5,7 @@
  * Date: 22.1.2017 г.
  * Time: 19:00
  */
-class Customer implements User, Person {
+class Customer implements User {
     private $name;
     private $surname;
     private $familyName;

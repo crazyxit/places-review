@@ -5,7 +5,7 @@
  * Date: 22.1.2017 г.
  * Time: 19:00
  */
-interface User{
+interface User extends Person {
     public function setUsername($username = '');
     public function getUsername();
     public function setEmail($email = '');
